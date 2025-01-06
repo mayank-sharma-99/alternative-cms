@@ -1,3 +1,84 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.tree {
+    margin: 20px;
+    padding: 0;
+    list-style-type: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.tree ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.tree > ul > li {
+    border-bottom: 1px solid #eee;
+}
+
+.tree li {
+    position: relative;
+    margin: 0;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.tree li:hover {
+    background-color: #f0f0f0;
+}
+
+.tree li > div {
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.tree li > div:before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #666;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-in-out;
+}
+
+
+.tree li.expanded > div:before {
+    transform: rotate(90deg);
+}
+
+.tree li ul {
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 2px dashed #ddd;
+}
+
+
+.tree li ul.collapsed {
+    display: none;
+}
+
+.tree li.root {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    border-bottom: 2px solid #ddd;
+}
+
+.hidden {
+    display: none;
+}

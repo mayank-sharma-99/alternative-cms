@@ -26,17 +26,22 @@ class PageController extends Controller
         return response()->json($page, 201);
     }
 
-    public function show($slugPath)
+    public function show($slug, Request $request)
     {
-        $slugs = explode('/', $slugPath);
+        $slugParts = explode('/', $slug);
         $page = null;
-        $parentId = null;
 
-        foreach ($slugs as $slug) {
-            $page = Page::bySlug($slug, $parentId)->firstOrFail();
-            $parentId = $page->id;
+        foreach ($slugParts as $part) {
+            $page = Page::where('slug', $part)
+                ->where('parent_id', optional($page)->id)
+                ->first();
+
+            if (!$page) {
+                return response()->json(['error' => 'Page not found'], 404);
+            }
         }
 
+        $page->load('children');
         return response()->json($page);
     }
 
